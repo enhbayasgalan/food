@@ -2,35 +2,21 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input";
-
-export const SignUp = () => {
+type step = {
+  
+}
+export const SignUp = ({ setStep }) => {
   const [signEmail, setEmail] = useState("");
   const [error, setErrors] = useState<{ Email?: string }>({});
   const checkEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const onContinue = () => {
-    let isValidForm = true;
+  const onContinue = () => (
+    
 
-    if (!signEmail) {
-      setErrors((prev) => ({
-        ...prev,
-        Email: "Email is required",
-      }));
-      isValidForm = false;
-    } else if (!checkEmail.test(signEmail)) {
-      setErrors((prev) => ({
-        ...prev,
-        Email: "Invalid email. Use a format like @email.com",
-      }));
-      isValidForm = false;
-    } else {
-      setErrors((prev) => ({ ...prev, Email: "" }));
-    }
-
-    if (isValidForm) {
-      console.log("Form is valid, proceeding...");
-    }
-  };
+   
+      setStep(2)
+    
+  );
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
@@ -52,7 +38,7 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center">
       <div><Button className="bg-gray-200">
         {" "}
         <svg
@@ -85,17 +71,21 @@ export const SignUp = () => {
       />
       {error.Email && <p className="text-red-500">{error.Email}</p>}
       <Button
-        onClick={onContinue}
+        onClick={() =>onContinue()}
         className=" h-[36px] py-[32px] justify-center items-center gap-[8px] bg-[#E4E4E7] mt-[18px] w-[416px] rounded-md text-white text-base"
       >
         Let's Go
       </Button>
 
-      <p className="gap-[10px] text-blue-500 mt-[20px]">
-        Already have an account? Log in
-      </p></div>
-      <div className="w-2/3">
-
+      <p className="gap-[10px] text-gray-500 mt-[20px]">
+        Already have an account? 
+      </p>
+      <p className="gap-[10px] text-blue-500 ">
+         Log in
+      </p>
+      </div>
+      <div className="w-2/3 p-4 ">
+       <img src="home.png"/>
       </div>
     </div>
   );

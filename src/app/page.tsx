@@ -1,12 +1,18 @@
-import { SignUp } from "@/components/login";
+"use client"
+import { SignupPassword } from "@/components/SignuoPassword";
+import { SignUp } from "@/components/signup";
+import { useState } from "react";
 
 
 export default function Home() {
+  const[step, setStep] = useState<number>(1)
   return (
-    <div className="w-[1440px] h-[1024px] shrink">
-      <div className="flex w-[416px] flex-col justify-center items-start gap-[24px]">
-      <SignUp/>  
-      </div>
+    <div className=" w-screen h-screen">
+     
+      { step === 1 ? <SignUp setStep={setStep}/>: <> </>}  
+      { step === 2 ? <SignupPassword/>: <> </>}  
+
+      
     </div>
   );
 }
