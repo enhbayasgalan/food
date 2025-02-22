@@ -1,14 +1,12 @@
 "use client";
 
-
-import { SignUP } from "@/components/signup";
-import Image from "next/image";
+import SignUP from "@/components/signup";
 
 export default function Home() {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen flex h-screen items-center">
       <SignUP/>
-      <Image src="/home.png" width={856} height={904} alt="home"/>
+      <img src="home.png" width={856} height={904} alt="home" />
     </div>
   );
 }

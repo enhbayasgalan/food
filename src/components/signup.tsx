@@ -1,30 +1,73 @@
-import { ChevronLeft } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "postcss";
+import { useEffect, useState } from "react";
 
-export const SignUP = () => {
+
+import { useRouter } from "next/navigation";
+
+import Password from "./password";
+import { Email } from "./email";
+type User = {
+  email: string;
+  password: string;
+};
+const SignUP = () => {
+  const router = useRouter();
+  const [step, setStep] = useState<number>(1);
+  const [user, setUser] = useState<User>({ email: "", password:"" });
+  const goLoginPage = () => {
+    router.push("/login");
+  };
+
+  console.log(user);
+
+  const postUser = async () => {
+
+    try {
+      const response = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const text = await response.text();
+      console.log("Response status:", response.status);
+      console.log("Response text:", text);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (err) {
+      console.error("Error posting user:", err);
+    }finally{
+      router.push(`/login`)
+    }
+
+  };
+
+  
+
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <div>
-        {" "}
-        <Button className="bg-gray-500">
-          <ChevronLeft />
-        </Button>
-        <p className="text-base font-semibold mt-[20px]">Create your account</p>
-        <p className="text-base font-normal text-gray-500">
-          Sign up to explore your favorite dishes.
-        </p>
-        <input
-          placeholder="Enter your email address"
-          type="email"
-          className="bg-gray-200 rounded-md w-[426px] h-[36px]"
-        />
-        <Button className="h-[36px] py-[32px] justify-center items-center gap-[8px] bg-[#E4E4E7] w-[416px] rounded-md text-white text-base">
-          lets go
-        </Button>
-        <p className="gap-[12px] text-gray-500">Already have an account?</p>
-        <p className="text-blue-500">Log in </p>
+    <div className="w-[40%] flex items-center justify-center">
+      <div className="w-[80%] flex flex-col h-fit gap-6">
+        {step === 1 ? (
+          <Email user={user} setUser={setUser} setStep={setStep} />
+        ) : (
+          <Password
+            user={user}
+            setUser={setUser}
+            setStep={setStep}
+            postUser={postUser}
+          />
+        )}
+        <div className="flex w-full justify-center gap-4">
+          <p>Already have an account?</p>
+          <p onClick={goLoginPage} className="text-[#2563EB]">
+            Log in
+          </p>
+        </div>
       </div>
     </div>
   );
 };
+export default SignUP;
