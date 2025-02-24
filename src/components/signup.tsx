@@ -22,7 +22,7 @@ const SignUP = () => {
   const postUser = async () => {
 
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch("http://localhost:4000/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,8 +37,8 @@ const SignUP = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    } catch (err) {
-      console.error("Error posting user:", err);
+    } catch (error) {
+      console.error("Error posting user:", error);
     }finally{
       router.push(`/login`)
     }
@@ -60,7 +60,7 @@ const SignUP = () => {
             postUser={postUser}
           />
         )}
-        <div className="flex w-full justify-center gap-4">
+        <div className="flex w-[416px] justify-center gap-4">
           <p>Already have an account?</p>
           <p onClick={goLoginPage} className="text-[#2563EB]">
             Log in

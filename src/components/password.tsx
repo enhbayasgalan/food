@@ -37,7 +37,7 @@ const Password = ({ setStep, postUser, setUser, user }: props) => {
     <>
       {" "}
       <button
-        onClick={() => setStep(1)}
+        onClick={() => setStep(1)} 
         className="w-9 h-9 border border-[#E4E4E7] rounded-md flex items-center justify-center"
       >
         <ChevronLeft />
@@ -51,7 +51,7 @@ const Password = ({ setStep, postUser, setUser, user }: props) => {
       <form className="flex flex-col gap-4">
         <input
           type={showPassword == true ? "text" : "password"}
-          className="h-9 pl-4 w-full border rounded-md"
+          className="h-9 pl-4 w-[416px] border rounded-md"
           placeholder="new-password"
           onChange={(el) => setUser({ ...user, password: el.target.value })}
           value={user.password}
@@ -63,7 +63,7 @@ const Password = ({ setStep, postUser, setUser, user }: props) => {
           <input
             type={showPassword == true ? "text" : "password"}
             placeholder="confirm-password"
-            className="h-9 pl-4 w-full border rounded-md"
+            className="h-9 pl-4 w-[416px] border rounded-md"
             onChange={(el) => setConfirmPassword(el.target.value.toString())}
             value={confirmPassword}
             style={{
@@ -86,7 +86,7 @@ const Password = ({ setStep, postUser, setUser, user }: props) => {
       </form>
       <button
         onClick={Login}
-        className="py-[4px] w-full border rounded-md"
+        className="py-[4px] w-[416px] border rounded-md"
       >
         let's go
       </button>
