@@ -1,73 +1,13 @@
-import { useEffect, useState } from "react";
+import { ChevronLeft } from "lucide-react"
+import { Button } from "./ui/button"
 
-
-import { useRouter } from "next/navigation";
-
-import Password from "./password";
-import { Email } from "./email";
-type User = {
-  email: string;
-  password: string;
-};
-const SignUP = () => {
-  const router = useRouter();
-  const [step, setStep] = useState<number>(1);
-  const [user, setUser] = useState<User>({ email: "", password:"" });
-  const goLoginPage = () => {
-    router.push("/login");
-  };
-
-  console.log(user);
-
-  const postUser = async () => {
-
-    try {
-      const response = await fetch("http://localhost:4000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
-      const text = await response.text();
-      console.log("Response status:", response.status);
-      console.log("Response text:", text);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error posting user:", error);
-    }finally{
-      router.push(`/login`)
-    }
-
-  };
-
-  
-
-  return (
-    <div className="w-[40%] flex items-center justify-center">
-      <div className="w-[80%] flex flex-col h-fit gap-6">
-        {step === 1 ? (
-          <Email user={user} setUser={setUser} setStep={setStep} />
-        ) : (
-          <Password
-            user={user}
-            setUser={setUser}
-            setStep={setStep}
-            postUser={postUser}
-          />
-        )}
-        <div className="flex w-[416px] justify-center gap-4">
-          <p>Already have an account?</p>
-          <p onClick={goLoginPage} className="text-[#2563EB]">
-            Log in
-          </p>
-        </div>
-      </div>
+export const SignUpEmail = () => {
+  return(
+    <div className="w-full h-full flex justify-center items-center">
+      <Button className="bg-gray-200">
+        <ChevronLeft/>
+      </Button>
+      <p className=""></p>
     </div>
-  );
-};
-export default SignUP;
+  )
+}
