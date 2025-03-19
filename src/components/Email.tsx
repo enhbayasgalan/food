@@ -31,8 +31,10 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
     }
     const getEmail = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/user`)
-            console.log(res);
+            const response = await axios.get(`http://localhost:5000/user`)
+            console.log(response);
+            
+            
         } catch (error) {
             console.error(error);
             
@@ -52,7 +54,7 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
           Sign up to explore your favorite dishes.
         </p>
       </div>
-      <div className="h-fit w-full flex flex-col gap-2 ">
+      <div className="h-fit w-[416px] flex flex-col gap-2 ">
         <input
           className="h-9 pl-4 w-full border rounded-md mt-[15px]"
           placeholder="Enter your email address"
@@ -61,8 +63,8 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
           style={{borderColor : email === true ? "red" : "#71717A"}}
         />
       </div>
-      <Button className="py-[4px] w-full border rounded-md mt-[15px] " onClick={ExamEmail}>
-        lets fo 
+      <Button className="py-[4px] w-[416px] border rounded-md mt-[15px] " onClick={ExamEmail}>
+        lets go
       </Button>
     </div>
   );

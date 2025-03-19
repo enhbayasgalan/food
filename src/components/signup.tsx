@@ -6,20 +6,47 @@ import axios from "axios"
 import { Email } from "./Email"
 import { userAgent } from "next/server"
 import { Password } from "./Password"
+import { useRouter } from "next/navigation"
+
+
 type User = {
   email : string,
   password : string
 }
 
 export const SignUpEmail = () => {
+  const router = useRouter();
   const [newUser, setNewUser] = useState<User>({email: "", password: ""})
   const [step, setStep] = useState<number>(1);
+  const LoginPage = () => {
+    router.push("/login");
+  }
+  console.log(newUser);
+  const postUser = async () => {
+    try {
+      const res = await axios.post(`http://localhost:5000/user`, newUser)
+      console.log(res);
+      
+    } catch (error) {
+      console.error("Error posting usr:", error)
+      
+    }
+  }
   return(
     <div className="w-full h-full flex justify-center items-center flex-col gap-4 ">
-      <Email user={newUser} setNewUser={setNewUser} setStep={setStep}/>
-      <Password user={newUser}/>
-      <p className="font-normal text-base text-gray-400 ">Already have an account?</p>
-      <p className="font-normal text-base text-[#2563EB]">log in</p>
+      <div className="w-full flex flex-col h-fti gap-6">
+        {step === 1 ? (
+            <Email user={newUser} setNewUser={setNewUser} setStep={setStep}/>
+        ) : (   
+            <Password user={newUser} setUser={setNewUser} setStep={setStep} postUser={postUser}/>
+        )}
+        <div className="flex w-[416px] justify-center gap-4">
+          <p>Already have a account</p>
+          <p onClick={LoginPage} className="text-[#2563EB]">
+            Login in
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
