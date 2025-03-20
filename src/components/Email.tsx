@@ -16,6 +16,7 @@ type User = {
 }
 export const Email = ({user, setNewUser, setStep} : Props) => {
     const [email, setEmail] = useState(false);
+    const [emailerror, setEmailError] = useState(false)
     const ExamEmail = () => {
         const emailinvald = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         if (emailinvald.test(user.email)) {
@@ -33,8 +34,7 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
         try {
             const response = await axios.get(`http://localhost:5000/user`)
             console.log(response);
-            
-            
+            getEmail()
         } catch (error) {
             console.error(error);
             
@@ -62,6 +62,11 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
           value={user.email}
           style={{borderColor : email === true ? "red" : "#71717A"}}
         />
+        {emailerror === true && (
+          <label className="text-red-600 text-sm">
+            Invalid email. Use a format like example@email.com
+          </label>
+        )}
       </div>
       <Button className="py-[4px] w-[416px] border rounded-md mt-[15px] " onClick={ExamEmail}>
         lets go

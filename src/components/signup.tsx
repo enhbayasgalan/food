@@ -1,3 +1,5 @@
+"use client"
+
 import { Axe, ChevronLeft, StepBack } from "lucide-react"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,14 +21,13 @@ export const SignUpEmail = () => {
   const [newUser, setNewUser] = useState<User>({email: "", password: ""})
   const [step, setStep] = useState<number>(1);
   const LoginPage = () => {
-    router.push("/login");
+    router.push("/loginpage");
   }
   console.log(newUser);
   const postUser = async () => {
     try {
       const res = await axios.post(`http://localhost:5000/user`, newUser)
       console.log(res);
-      
     } catch (error) {
       console.error("Error posting usr:", error)
       
