@@ -34,7 +34,6 @@ export const Email = ({user, setNewUser, setStep} : Props) => {
         try {
             const response = await axios.get(`http://localhost:5000/user`)
             console.log(response);
-            getEmail()
         } catch (error) {
             console.error(error);
             
